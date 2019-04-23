@@ -100,36 +100,24 @@ extension CollectionController: UICollectionViewDragDelegate {
 
 extension CollectionController: UICollectionViewDropDelegate {
     func collectionView(_ collectionView: UICollectionView, performDropWith coordinator: UICollectionViewDropCoordinator) {
-        
-        guard let destinationIndexPath = coordinator.destinationIndexPath else {
-            return
-        }
-        
-        guard let collectionViewDragItem = coordinator.items.first else {
-            return
-        }
-        
-        guard let sourceIndexPath = collectionViewDragItem.sourceIndexPath else {
-            return
-        }
-        
-        guard let dragItem = coordinator.items.first?.dragItem else {
-            return
-        }
-        
-        guard let item = dragItem.localObject as? ListItem else {
-            return
-        }
+        guard let destinationIndexPath = coordinator.destinationIndexPath,
+            let collectionViewDragItem = coordinator.items.first,
+            let sourceIndexPath = collectionViewDragItem.sourceIndexPath,
+            let dragItem = coordinator.items.first?.dragItem,
+            let item = dragItem.localObject as? ListItem
+            else { return }
         
         switch coordinator.proposal.operation {
         case .copy:
             break
             
         case .move:
-            itemsContainer.listItems.remove(at: sourceIndexPath.item)
-            itemsContainer.listItems.insert(item, at: destinationIndexPath.item)
-            collectionView.moveItem(at: sourceIndexPath, to: destinationIndexPath)
-            adapter.performUpdates(animated: false, completion: nil)
+            let newItemsContainer = ListItemsContainer(listItems: itemsContainer.listItems, id: itemsContainer.id)
+            newItemsContainer.listItems.remove(at: sourceIndexPath.item)
+            newItemsContainer.listItems.insert(item, at: destinationIndexPath.item)
+            itemsContainer = newItemsContainer
+            
+            adapter.performUpdates(animated: true, completion: nil)
             coordinator.drop(dragItem, toItemAt: destinationIndexPath)
             
         default:

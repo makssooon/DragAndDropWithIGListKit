@@ -46,20 +46,20 @@ class CollectionCellNode: ASCellNode {
     }
 }
 
-//extension CollectionCellNode: ListBindable {
-//    func bindViewModel(_ viewModel: Any) {
-//        guard let listItem = viewModel as? ListItem else {
-//            return
-//        }
-//        
-//        textNode.attributedText = NSAttributedString(
-//            string: listItem.string,
-//            attributes: [
-//                .font : UIFont.boldSystemFont(ofSize: 42),
-//                .foregroundColor : #colorLiteral(red: 0.3764705882, green: 0.3764705882, blue: 0.3764705882, alpha: 1)
-//            ]
-//        )
-//        
-//        setNeedsLayout()
-//    }
-//}
+extension CollectionCellNode: ListBindable {
+    func bindViewModel(_ viewModel: Any) {
+        guard let listItem = viewModel as? ListItem else {
+            return
+        }
+        
+        textNode.attributedText = NSAttributedString(
+            string: listItem.string,
+            attributes: [
+                .font : UIFont.boldSystemFont(ofSize: 42),
+                .foregroundColor : #colorLiteral(red: 0.3764705882, green: 0.3764705882, blue: 0.3764705882, alpha: 1)
+            ]
+        )
+        
+        setNeedsLayout()
+    }
+}
