@@ -1,0 +1,6 @@
+framework module Pods_DragAndDropWithIGListKit {
+  umbrella header "Pods-DragAndDropWithIGListKit-umbrella.h"
+
+  export *
+  module * { export * }
+}
