@@ -8,11 +8,7 @@
 
 import AsyncDisplayKit
 
-class ListItemsContainer: ListDiffable, Equatable {
-    static func == (lhs: ListItemsContainer, rhs: ListItemsContainer) -> Bool {
-        return lhs.listItems == rhs.listItems && lhs.id == rhs.id
-    }
-    
+class ListItemsContainer: ListDiffable {
     func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
         guard let listItemsContainer = object as? ListItemsContainer else {
             return false
@@ -35,10 +31,6 @@ class ListItemsContainer: ListDiffable, Equatable {
 }
 
 class ListItem: NSObject, ListDiffable {
-    static func == (lhs: ListItem, rhs: ListItem) -> Bool {
-        return lhs.string == rhs.string
-    }
-    
     func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
         return string == (object as? ListItem)?.string
     }
